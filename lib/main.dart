@@ -8,6 +8,14 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
+  double _numberForm;
+
+  @override
+  void initState() {
+    _numberForm = 0;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,8 +25,21 @@ class MyAppState extends State<MyApp> {
             title: Text("Foreign Exchange Rates"),
           ),
           body: Center(
-            child: Text("Find conversion rates for any currency pair"),
-          )),
+              child: Column(
+            children: [
+              TextField(
+                onChanged: (text) {
+                  var userInput = double.tryParse(text);
+                  if (userInput != null) {
+                    setState(() {
+                      _numberForm = userInput;
+                    });
+                  }
+                },
+              ),
+              Text((_numberForm == null) ? '' : _numberForm.toString())
+            ],
+          ))),
     );
   }
 }
